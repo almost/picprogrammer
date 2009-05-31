@@ -179,20 +179,20 @@ class Chipinfo_Entry(object):
     class Fuse_Error(Exception):
         "Indicates an erroneous fuse value."
 
-    power_sequence_dict = {'Vcc' : 0,
-                           'VccVpp1' : 1,
-                           'VccVpp2' : 2,
-                           'Vpp1Vcc' : 3,
-                           'Vpp2Vcc' : 4,
-                           'VccFastVpp1' : 1,
-                           'VccFastVpp2' : 2}
-    vcc_vpp_delay_dict = {'Vcc' : False,
-                          'VccVpp1' : False,
-                          'VccVpp2' : False,
-                          'Vpp1Vcc' : False,
-                          'Vpp2Vcc' : False,
-                          'VccFastVpp1' : True,
-                          'VccFastVpp2' : True}
+    power_sequence_dict = {'vcc' : 0,
+                           'vccvpp1' : 1,
+                           'vccvpp2' : 2,
+                           'vpp1vcc' : 3,
+                           'vpp2vcc' : 4,
+                           'vccfastvpp1' : 1,
+                           'vccfastvpp2' : 2}
+    vcc_vpp_delay_dict = {'vcc' : False,
+                          'vccvpp1' : False,
+                          'vccvpp2' : False,
+                          'vpp1vcc' : False,
+                          'vpp2vcc' : False,
+                          'vccfastvpp1' : True,
+                          'vccfastvpp2' : True}
     socket_image_dict = {'8pin' : 'socket pin 13',
                          '14pin' : 'socket pin 13',
                          '18pin' : 'socket pin 2',
@@ -211,7 +211,7 @@ class Chipinfo_Entry(object):
             'SocketImage' : SocketImage,
             'erase_mode' : EraseMode,
             'FlashChip' : FlashChip,
-            'power_sequence' : self.power_sequence_dict[PowerSequence],
+            'power_sequence' : self.power_sequence_dict[PowerSequence.lower()],
             'power_sequence_str' : PowerSequence,
             'program_delay' : ProgramDelay,
             'program_tries' : ProgramTries,
@@ -237,7 +237,7 @@ class Chipinfo_Entry(object):
             flag_band_gap_fuse = self.vars['flag_band_gap_fuse'],
             # T.Nixon says this is the rule for this flag.
             flag_18f_single_panel_access_mode = (self.vars['core_type'] == Chipinfo_Reader.core_type_dict['bit16_a']),
-            flag_vcc_vpp_delay = self.vcc_vpp_delay_dict[self.vars['power_sequence_str']],
+            flag_vcc_vpp_delay = self.vcc_vpp_delay_dict[self.vars['power_sequence_str'].lower()],
             program_delay = self.vars['program_delay'],
             power_sequence = self.vars['power_sequence'],
             erase_mode = self.vars['erase_mode'],
