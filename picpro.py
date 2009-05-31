@@ -889,8 +889,9 @@ class Protocol_Interface(object):
             response_ok = 'Y'
             response_bad = 'N'  # Protocol doc doesn't give a "bad" response value.
         else:
-            if (len(fuses) != 1):
-                raise self.Invalid_Value_Error, 'Should have one fuse for 14 bit core.'
+            # 16f88 is 14bit yet has two fuses
+            if (len(fuses) not in [1,2]):
+                raise self.Invalid_Value_Error, 'Should have one or two fuses for 14 bit core.'
             if (len(id) != 4):
                 raise self.Invalid_Value_Error, 'Should have 4-byte ID for 14 bit core.'
             # Command starts with dual '0' for 14 bit
